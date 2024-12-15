@@ -1,0 +1,25 @@
+
+services:
+  aria2:
+    image: awsl1414:latest
+    container_name: aria2
+    environment:
+      - ARIA2_RPC_SECRET=
+      - ARIA2_RPC_LISTEN_PORT=6800
+      - ARIA2_LISTEN_PORT=6881
+      - UID=1000
+      - GID=1000
+      - UMASK=022
+    
+    # ports，network_mode，任意开启一个
+    
+    # ports:
+    #   - 6800:6800
+    #   - 6881:6881
+    #   - 6881:6881/udp
+    #   - 8080:8080
+    volumes:
+      - ./config:/config
+      - ./downloads:/downloads
+    restart: unless-stopped
+    network_mode: host
