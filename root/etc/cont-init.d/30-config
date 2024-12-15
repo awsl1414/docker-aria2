@@ -71,21 +71,7 @@ if [ "$ARIANG_RPC_LISTEN_PORT_AUTO" == "true" ]; then
   fi
 fi
 
-#设定trackers更新任务
-if [ "$(grep -c updatetrackers.sh /var/spool/cron/crontabs/root)" -eq 0 ]; then
-  echo "0       0       *       *       *       /usr/local/aria2/script/updatetrackers.sh" >>/var/spool/cron/crontabs/root
-  echo trackers更新任务已设定。
-else
-  echo trackers更新任务已存在。
-fi
-
-#启动更新trackers。
-if [ "$ARIA2_TRACKERS_UPDATE_AUTO" == "true" ]; then
-  /usr/local/aria2/script/updatetrackers.sh
-fi
-
 # extra function
-
 ON_DOWNLOAD_START=$(awk -F= '/^on-download-start=/ {print $2}' /config/aria2.conf)
 if [ -z "$ON_DOWNLOAD_START" ]; then
   sed -i "s/.*on-download-start.*/on-download-start=\/script\/start.sh/" /config/aria2.conf

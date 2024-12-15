@@ -16,3 +16,15 @@ chown -R aria2:aria2 /usr/local/aria2
 #脚本权限
 chmod a+x /config/script/*
 
+#设定trackers更新任务
+if [ "$(grep -c updatetrackers.sh /var/spool/cron/crontabs/root)" -eq 0 ]; then
+    echo "0       0       *       *       *       /usr/local/aria2/script/rpc_tracker.sh" >>/var/spool/cron/crontabs/root
+    echo trackers更新任务已设定。
+else
+    echo trackers更新任务已存在。
+fi
+
+#启动更新trackers。
+if [ "$ARIA2_TRACKERS_UPDATE_AUTO" == "true" ]; then
+    /usr/local/aria2/script/tracker.sh
+fi
