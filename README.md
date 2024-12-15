@@ -2,7 +2,7 @@
 
 ## 说明
 
-项目主体来自 **[gshang2017/docker](https://github.com/gshang2017/docker)**
+项目主体来自 **[gshang2017/docker](https://github.com/gshang2017/docker/tree/master/aria2)**
 
 ## 感谢以下项目
 
