@@ -14,7 +14,7 @@ chown -R aria2:aria2 /downloads
 chown -R aria2:aria2 /usr/local/aria2
 
 #脚本权限
-chmod a+x /config/script/*
+chmod a+x /script/*
 
 #设定trackers更新任务
 if [ "$(grep -c updatetrackers.sh /var/spool/cron/crontabs/root)" -eq 0 ]; then
@@ -26,5 +26,5 @@ fi
 
 #启动更新trackers。
 if [ "$ARIA2_TRACKERS_UPDATE_AUTO" == "true" ]; then
-    /usr/local/aria2/script/tracker.sh
+    /script/tracker.sh
 fi
