@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/usr/bin/env bash
 
 if [ "$ARIA2_TRACKERS_UPDATE_AUTO" == "true" ]; then
   curl -so /tmp/trackers_all.txt "$ARIA2_TRACKERS_LIST_URL"

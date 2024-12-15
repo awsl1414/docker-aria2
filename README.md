@@ -1,23 +1,24 @@
-## 群晖nas自用：
+# 自用 Aria2
 
-### GitHub:
+## 说明
+
+项目主体来自 **[gshang2017/docker](https://github.com/gshang2017/docker)**
+
+## 感谢以下项目
 
 [https://github.com/gshang2017/docker](https://github.com/gshang2017/docker)
-
-### 感谢以下项目:
-
-[https://github.com/aria2/aria2](https://github.com/aria2/aria2)                        
-[https://github.com/mayswind/AriaNg](https://github.com/mayswind/AriaNg)             
+[https://github.com/aria2/aria2](https://github.com/aria2/aria2)
+[https://github.com/mayswind/AriaNg](https://github.com/mayswind/AriaNg)
 [https://github.com/ngosang/trackerslist](https://github.com/ngosang/trackerslist)
 
-### 版本：
+## 版本
 
 |名称|版本|说明|
 |:-|:-|:-|
 |Aria2|1.37.0|amd64;arm64v8;arm32v7,修改线程数至128，默认32，集成Trackers自动更新。|
 |AriaNg|1.3.8|Aria2的web管理界面|
 
-### docker命令行设置：
+## docker命令行设置
 
 * 变量名变更
 
@@ -50,7 +51,7 @@
            -e GID=1000 \
            -e UMASK=022 \
            -v /配置文件位置:/config \
-           -v /下载位置:/Downloads \
+           -v /下载位置:/downloads \
            --restart unless-stopped \
            johngong/aria2:latest
 
@@ -70,17 +71,17 @@
 
        docker image rm johngong/aria2:latest
 
-### 变量:
+## 变量
 
 |参数|说明|
 |:-|:-|
 | `--name=aria2` |容器名|
 | `-p 6881:6881` |BT下载监听端口|
 | `-p 6881:6881/udp` |BT下载DHT监听端口|
-| `-p 8080:8080 ` | AriaNG web访问端口|
+| `-p 8080:8080` | AriaNG web访问端口|
 | `-p 6800:6800` |Aria2 RPC 默认端口|
 | `-v /配置文件位置:/config` |Aria2配置文件位置|
-| `-v /下载位置:/Downloads` |Aria2默认下载位置|
+| `-v /下载位置:/downloads` |Aria2默认下载位置|
 | `-e UID=1000` |uid设置,默认为1000|
 | `-e GID=1000` |gid设置,默认为1000|
 | `-e UMASK=022` |umask设置,默认为022|
@@ -89,20 +90,20 @@
 | `-e ARIA2_RPC_LISTEN_PORT=6800` |Aria2 RPC 默认端口|
 | `-e ARIA2_LISTEN_PORT=6881` |BT下载及DHT监听端口|
 | `-e ARIA2_TRACKERS_UPDATE_AUTO=true` |(true\|false)自动更新Aria2的trackers,默认开启|
-| `-e ARIA2_TRACKERS_LIST_URL=` |trackers更新地址设置,仅支持ngosang格式,默认为  </br>https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt |
+| `-e ARIA2_TRACKERS_LIST_URL=` |trackers更新地址设置,仅支持ngosang格式,默认为  </br><https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt> |
 | `-e ARIA2_CONF_LANGUAGE=zh_Hans` |(zh_Hans\|zh_Hant\|en)Aria2配置文件注释语言|
 | `-e ENABLE_ARIANG=true` |(true\|false)开启AriaNG,默认开启|
 | `-e ARIANG_PORT=8080` |AriaNG访问端口,默认8080|
 | `-e ARIANG_RPC_SECRET_AUTO=false` |(true\|false)自动添加AriaNG里RPC连接中token值,默认关闭|
 | `-e ARIANG_RPC_LISTEN_PORT_AUTO=true` |(true\|false)自动添加AriaNG里RPC连接中port值(本地与容器端口需一致),默认开启|
 
-### 群晖docker设置：
+## 群晖docker设置
 
 1. 卷
 
 |参数|说明|
 |:-|:-|
-| `本地文件夹1:/Downloads` |Aria2默认下载位置|
+| `本地文件夹1:/downloads` |Aria2默认下载位置|
 | `本地文件夹2:/config` |Aria2配置位置文件|
 
 2. 端口
@@ -126,7 +127,7 @@
 | `ARIA2_RPC_LISTEN_PORT=6800` |Aria2 RPC 默认端口|
 | `ARIA2_LISTEN_PORT=6881` |BT下载及DHT监听端口|
 | `ARIA2_TRACKERS_UPDATE_AUTO=true` |(true\|false)自动更新Aria2的trackers,默认开启|
-| `ARIA2_TRACKERS_LIST_URL=` |trackers更新地址设置,仅支持ngosang格式,默认为  </br>https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt |
+| `ARIA2_TRACKERS_LIST_URL=` |trackers更新地址设置,仅支持ngosang格式,默认为  </br><https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt> |
 | `ARIA2_CONF_LANGUAGE=zh_Hans` |(zh_Hans\|zh_Hant\|en)Aria2配置文件注释语言|
 | `ENABLE_ARIANG=true` |(true\|false)开启AriaNG,默认开启|
 | `ARIANG_PORT=8080` |AriaNG访问端口,默认8080|

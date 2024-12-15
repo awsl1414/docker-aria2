@@ -28,7 +28,8 @@ COPY --chmod=755 root /
 COPY --from=compilingaria2c --chmod=755 /usr/local/bin/aria2c /usr/local/bin/aria2c
 
 # install bash darkhttpd tzdata s6 overlay AriaNg aria2 shadow
-RUN apk add --no-cache bash curl ca-certificates darkhttpd tzdata shadow c-ares expat gmp gnutls sqlite-libs libstdc++ libssh2 \
+RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsinghua.edu.cn/alpine#g' /etc/apk/repositories \
+&& apk add --no-cache bash curl ca-certificates darkhttpd tzdata shadow c-ares expat gmp gnutls sqlite-libs libstdc++ libssh2 jq \
 && if [ "$(uname -m)" = "x86_64" ];then s6_arch=x86_64;elif [ "$(uname -m)" = "aarch64" ];then s6_arch=aarch64;elif [ "$(uname -m)" = "armv7l" ];then s6_arch=arm; fi \
 && wget -P /tmp https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-noarch.tar.xz \
 && tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz \
@@ -57,6 +58,6 @@ RUN apk add --no-cache bash curl ca-certificates darkhttpd tzdata shadow c-ares 
 #
 && rm -rf /var/cache/apk/* /tmp/*
 
-VOLUME /Downloads /config
+VOLUME /downloads /config
 EXPOSE 6800 8080 6881 6881/udp
 ENTRYPOINT [ "/init" ]

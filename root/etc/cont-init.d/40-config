@@ -1,0 +1,18 @@
+#!/usr/bin/with-contenv bash
+
+#设置时区
+ln -sf /usr/share/zoneinfo/"$TZ" /etc/localtime
+echo "$TZ" >/etc/timezone
+
+#修改用户UID GID
+groupmod -o -g "$GID" aria2
+usermod -o -u "$UID" aria2
+
+#修复权限
+chown -R aria2:aria2 /config
+chown -R aria2:aria2 /downloads
+chown -R aria2:aria2 /usr/local/aria2
+
+#脚本权限
+chmod a+x /config/script/*
+

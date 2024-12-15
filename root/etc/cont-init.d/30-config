@@ -1,34 +1,4 @@
-#! /usr/bin/with-contenv bash
-
-#检查config文件
-if [ ! -f /config/aria2.conf ]; then
-  cp /usr/local/aria2/defaults/aria2.conf /config/aria2.conf
-  if [ "$ARIA2_CONF_LANGUAGE" == "zh_Hant" ]; then
-    sed -i 's/\#zh_Hant//g' /config/aria2.conf
-    sed -i '/\#zh_Hans\#/d' /config/aria2.conf
-    sed -i '/\#en\#/d' /config/aria2.conf
-  elif [ "$ARIA2_CONF_LANGUAGE" == "en" ]; then
-    sed -i 's/\#en//g' /config/aria2.conf
-    sed -i '/\#zh_Han/d' /config/aria2.conf
-  else
-    sed -i 's/\#zh_Hans//g' /config/aria2.conf
-    sed -i '/\#zh_Hant\#/d' /config/aria2.conf
-    sed -i '/\#en\#/d' /config/aria2.conf
-  fi
-fi
-
-#检查session文件
-if [ ! -f /config/aria2.session ]; then
-  touch /config/aria2.session
-fi
-
-#检查dht文件
-if [ ! -f /config/dht.dat ]; then
-  touch /config/dht.dat
-fi
-if [ ! -f /config/dht6.dat ]; then
-  touch /config/dht6.dat
-fi
+#!/usr/bin/with-contenv bash
 
 #修改secret
 ARIA2_RPC_SECRET_CONF_VAL=$(grep ^rpc-secret= /config/aria2.conf | sed 's/\(.*\)=//g' | sed ":a;N;s/\n//g;ta")
@@ -103,7 +73,7 @@ fi
 
 #设定trackers更新任务
 if [ "$(grep -c updatetrackers.sh /var/spool/cron/crontabs/root)" -eq 0 ]; then
-  echo "0       0       *       *       *       /usr/local/aria2/updatetrackers.sh" >>/var/spool/cron/crontabs/root
+  echo "0       0       *       *       *       /usr/local/aria2/script/updatetrackers.sh" >>/var/spool/cron/crontabs/root
   echo trackers更新任务已设定。
 else
   echo trackers更新任务已存在。
@@ -111,18 +81,28 @@ fi
 
 #启动更新trackers。
 if [ "$ARIA2_TRACKERS_UPDATE_AUTO" == "true" ]; then
-  /usr/local/aria2/updatetrackers.sh
+  /usr/local/aria2/script/updatetrackers.sh
 fi
 
-#设置时区
-ln -sf /usr/share/zoneinfo/"$TZ" /etc/localtime
-echo "$TZ" >/etc/timezone
+# extra function
 
-#修改用户UID GID
-groupmod -o -g "$GID" aria2
-usermod -o -u "$UID" aria2
+ON_DOWNLOAD_START=$(awk -F= '/^on-download-start=/ {print $2}' /config/aria2.conf)
+if [ -z "$ON_DOWNLOAD_START" ]; then
+  sed -i "s/.*on-download-start.*/on-download-start=\/script\/start.sh/" /config/aria2.conf
+fi
 
-#修复权限
-chown -R aria2:aria2 /config
-chown -R aria2:aria2 /Downloads
-chown -R aria2:aria2 /usr/local/aria2
+ON_DOWNLOAD_STOP=$(awk -F= '/^on-download-stop=/ {print $2}' /config/aria2.conf)
+if [ -z "$ON_DOWNLOAD_STOP" ]; then
+  sed -i 's@^\(on-download-stop=\).*@\1/script/stop.sh@' /config/aria2.conf
+fi
+
+ON_DOWNLOAD_COMPLETE=$(awk -F= '/^on-download-complete=/ {print $2}' /config/aria2.conf)
+if [ -z "$ON_DOWNLOAD_COMPLETE" ]; then
+  sed -i 's@^\(on-download-complete=\).*@\1/script/completed.sh@' /config/aria2.conf
+fi
+
+ON_DOWNLOAD_PAUSE=$(awk -F= '/^on-download-pause=/ {print $2}' /config/aria2.conf)
+if [ -z "$ON_DOWNLOAD_PAUSE" ]; then
+  sed -i "s/.*on-download-pause.*/on-download-pause=\/script\/pause.sh/" /config/aria2.conf
+fi
+

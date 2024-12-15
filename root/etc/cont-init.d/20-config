@@ -1,0 +1,85 @@
+#!/usr/bin/with-contenv bash
+
+# make folders
+mkdir -p \
+	/config/ssl \
+  /config/logs \
+  /config/backup-torrent \
+  /downloads/completed \
+  /downloads/recycle
+
+
+#检查config文件
+if [ ! -f /config/aria2.conf ]; then
+  cp /usr/local/aria2/defaults/aria2.conf /config/aria2.conf
+  if [ "$ARIA2_CONF_LANGUAGE" == "zh_Hant" ]; then
+    sed -i 's/\#zh_Hant//g' /config/aria2.conf
+    sed -i '/\#zh_Hans\#/d' /config/aria2.conf
+    sed -i '/\#en\#/d' /config/aria2.conf
+  elif [ "$ARIA2_CONF_LANGUAGE" == "en" ]; then
+    sed -i 's/\#en//g' /config/aria2.conf
+    sed -i '/\#zh_Han/d' /config/aria2.conf
+  else
+    sed -i 's/\#zh_Hans//g' /config/aria2.conf
+    sed -i '/\#zh_Hant\#/d' /config/aria2.conf
+    sed -i '/\#en\#/d' /config/aria2.conf
+  fi
+fi
+
+#检查脚本文件夹
+if [ ! -f /script ]; then
+  cp -r /usr/local/aria2/script /
+fi
+
+#检查session文件
+if [ ! -f /config/aria2.session ]; then
+  touch /config/aria2.session
+fi
+
+#检查dht文件
+if [ ! -f /config/dht.dat ]; then
+  touch /config/dht.dat
+fi
+if [ ! -f /config/dht6.dat ]; then
+  touch /config/dht6.dat
+fi
+
+#检查setting文件
+if [[ ! -f /config/setting.conf ]]
+then
+  cp /usr/local/aria2/defaults/setting.conf /config/setting.conf
+fi
+
+# 保留配置、更新修改配置文件
+if [[ -f /config/setting.conf ]]
+then
+  . /script/setting
+  SED_CONF
+fi
+
+#检查文件过滤文件
+if [[ ! -f /config/文件过滤.conf ]]
+then
+  cp /usr/local/aria2/defaults/文件过滤.conf /config/文件过滤.conf
+fi
+
+# 创建日志文件
+if [[ ! -f /config/logs/move.log ]]
+then
+  touch /config/logs/move.log
+fi
+
+if [[ ! -f /config/logs/recycle.log ]]
+then
+  touch /config/logs/recycle.log
+fi
+
+if [[ ! -f /config/logs/delete.log ]]
+then
+  touch /config/logs/delete.log
+fi
+
+if [[ ! -f /config/logs/文件过滤日志.log ]]
+then
+  touch /config/logs/文件过滤日志.log
+fi
