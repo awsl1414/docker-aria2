@@ -6,10 +6,12 @@
 
 ## 感谢以下项目
 
-[https://github.com/gshang2017/docker](https://github.com/gshang2017/docker)
-[https://github.com/aria2/aria2](https://github.com/aria2/aria2)
-[https://github.com/mayswind/AriaNg](https://github.com/mayswind/AriaNg)
-[https://github.com/ngosang/trackerslist](https://github.com/ngosang/trackerslist)
+[https://github.com/gshang2017/docker](https://github.com/gshang2017/docker)  
+[https://www.github.com/SuperNG6/docker-aria2](https://www.github.com/SuperNG6/docker-aria2)  
+[https://github.com/P3TERX/aria2.conf](https://github.com/P3TERX/aria2.conf)  
+[https://github.com/aria2/aria2](https://github.com/aria2/aria2)  
+[https://github.com/mayswind/AriaNg](https://github.com/mayswind/AriaNg)  
+[https://github.com/ngosang/trackerslist](https://github.com/ngosang/trackerslist)  
 
 ## 版本
 
@@ -33,8 +35,7 @@
 
     |镜像源|命令|
     |:-|:-|
-    |DockerHub|docker pull johngong/aria2:latest|
-    |GitHub|docker pull ghcr.io/gshang2017/aria2:latest|
+    |DockerHub|docker pull awsl1414/aria2:latest|
 
 2. 创建aria2容器
 
@@ -53,7 +54,7 @@
            -v /配置文件位置:/config \
            -v /下载位置:/downloads \
            --restart unless-stopped \
-           johngong/aria2:latest
+           awsl1414/aria2:latest
 
 3. 运行
 
@@ -69,7 +70,7 @@
 
 6. 删除镜像
 
-       docker image rm johngong/aria2:latest
+       docker image rm awsl1414/aria2:latest
 
 ## 变量
 
