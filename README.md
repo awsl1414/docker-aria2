@@ -54,7 +54,7 @@
            -v /配置文件位置:/config \
            -v /下载位置:/downloads \
            --restart unless-stopped \
-           awsl1414/aria2:latest
+           awsl1414/aria2:a2b-latest
 
 3. 运行
 
@@ -70,7 +70,7 @@
 
 6. 删除镜像
 
-       docker image rm awsl1414/aria2:latest
+       docker image rm awsl1414/aria2:a2b-latest
 
 ## 变量
 
@@ -134,3 +134,5 @@
 | `ARIANG_PORT=8080` |AriaNG访问端口,默认8080|
 | `ARIANG_RPC_SECRET_AUTO=false` |(true\|false)自动添加AriaNG里RPC连接中token值,默认关闭|
 | `ARIANG_RPC_LISTEN_PORT_AUTO=true` |(true\|false)自动添加AriaNG里RPC连接中port值(本地与容器端口需一致),默认开启|
+| `A2B=true` |启动aria2b,默认开启|
+| `CRA2B=2h` |Aria2b 定时任务重启时间|

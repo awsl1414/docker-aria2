@@ -4,4 +4,4 @@
 umask "$UMASK"
 
 #启动aria2
-exec s6-setuidgid aria2 aria2c --conf-path=/config/aria2.conf --enable-rpc --rpc-listen-all
+exec s6-setuidgid aria2 aria2c --conf-path=/config/aria2.conf > /dev/stdout 2 > /dev/stderr

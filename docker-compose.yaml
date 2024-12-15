@@ -1,8 +1,10 @@
 
 services:
   aria2:
-    image: awsl1414:latest
+    image: awsl1414:a2b-latest
     container_name: aria2
+    cap_add:
+      - NET_ADMIN
     environment:
       - ARIA2_RPC_SECRET=
       - ARIA2_RPC_LISTEN_PORT=6800
@@ -10,6 +12,10 @@ services:
       - UID=1000
       - GID=1000
       - UMASK=022
+      - ARIA2_TRACKERS_LIST_URL=https://cdn.jsdelivr.net/gh/ngosang/trackerslist@master/trackers_all.txt
+      - ARIA2_TRACKERS_UPDATE_AUTO=true
+      - A2B=true
+      - CRA2B=2h
     
     # ports，network_mode，任意开启一个
     
@@ -21,5 +27,6 @@ services:
     volumes:
       - ./config:/config
       - ./downloads:/downloads
+      - /lib/modules:/lib/modules
     restart: unless-stopped
     network_mode: host
