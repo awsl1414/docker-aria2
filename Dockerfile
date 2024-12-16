@@ -65,5 +65,5 @@ RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsing
 && rm -rf /var/cache/apk/* /tmp/*
 
 VOLUME /downloads /config
-EXPOSE 6800 8080 6881 6881/udp
+EXPOSE 6800 8080 51413 51413/udp
 ENTRYPOINT [ "/init" ]

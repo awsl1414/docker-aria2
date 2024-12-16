@@ -41,13 +41,13 @@
 
         docker create \
            --name=aria2 \
-           -p 6881:6881 \
-           -p 6881:6881/udp \
+           -p 51413:51413 \
+           -p 51413:51413/udp \
            -p 6800:6800 \
            -p 8080:8080 \
            -e ARIA2_RPC_SECRET=不需要可不填 \
            -e ARIA2_RPC_LISTEN_PORT=6800 \
-           -e ARIA2_LISTEN_PORT=6881 \
+           -e ARIA2_LISTEN_PORT=51413 \
            -e UID=1000 \
            -e GID=1000 \
            -e UMASK=022 \
@@ -77,8 +77,8 @@
 |参数|说明|
 |:-|:-|
 | `--name=aria2` |容器名|
-| `-p 6881:6881` |BT下载监听端口|
-| `-p 6881:6881/udp` |BT下载DHT监听端口|
+| `-p 51413:51413` |BT下载监听端口|
+| `-p 51413:51413/udp` |BT下载DHT监听端口|
 | `-p 8080:8080` | AriaNG web访问端口|
 | `-p 6800:6800` |Aria2 RPC 默认端口|
 | `-v /配置文件位置:/config` |Aria2配置文件位置|
@@ -89,7 +89,7 @@
 | `-e TZ=Asia/Shanghai` |系统时区设置,默认为Asia/Shanghai|
 | `-e ARIA2_RPC_SECRET=` |Aria2 RPC token值，默认为空|
 | `-e ARIA2_RPC_LISTEN_PORT=6800` |Aria2 RPC 默认端口|
-| `-e ARIA2_LISTEN_PORT=6881` |BT下载及DHT监听端口|
+| `-e ARIA2_LISTEN_PORT=51413` |BT下载及DHT监听端口|
 | `-e ARIA2_TRACKERS_UPDATE_AUTO=true` |(true\|false)自动更新Aria2的trackers,默认开启|
 | `-e ARIA2_TRACKERS_LIST_URL=` |trackers更新地址设置,仅支持ngosang格式,默认为  </br><https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt> |
 | `-e ARIA2_CONF_LANGUAGE=zh_Hans` |(zh_Hans\|zh_Hant\|en)Aria2配置文件注释语言|
@@ -111,8 +111,8 @@
 
 |参数|说明|
 |:-|:-|
-| `本地端口1:6881` |BT下载监听端口|
-| `本地端口2:6881/udp` |BT下载DHT监听端口|
+| `本地端口1:51413` |BT下载监听端口|
+| `本地端口2:51413/udp` |BT下载DHT监听端口|
 | `本地端口3:6800` |Aria2 RPC 默认端口|
 | `本地端口4:8080` |AriaNG web访问端口|
 
@@ -126,7 +126,7 @@
 | `TZ=Asia/Shanghai` |系统时区设置,默认为Asia/Shanghai|
 | `ARIA2_RPC_SECRET=` |Aria2 RPC token值，默认为空|
 | `ARIA2_RPC_LISTEN_PORT=6800` |Aria2 RPC 默认端口|
-| `ARIA2_LISTEN_PORT=6881` |BT下载及DHT监听端口|
+| `ARIA2_LISTEN_PORT=51413` |BT下载及DHT监听端口|
 | `ARIA2_TRACKERS_UPDATE_AUTO=true` |(true\|false)自动更新Aria2的trackers,默认开启|
 | `ARIA2_TRACKERS_LIST_URL=` |trackers更新地址设置,仅支持ngosang格式,默认为  </br><https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt> |
 | `ARIA2_CONF_LANGUAGE=zh_Hans` |(zh_Hans\|zh_Hant\|en)Aria2配置文件注释语言|
