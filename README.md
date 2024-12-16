@@ -35,7 +35,7 @@
 
     |镜像源|命令|
     |:-|:-|
-    |DockerHub|docker pull awsl1414/aria2:latest|
+    |DockerHub|docker pull awsl1414/aria2:a2b-latest|
 
 2. 创建aria2容器
 
@@ -54,7 +54,7 @@
            -v /配置文件位置:/config \
            -v /下载位置:/downloads \
            --restart unless-stopped \
-           awsl1414/aria2:a2b-latest
+           awsl1414/aria2:a2b-a2b-latest
 
 3. 运行
 
@@ -70,7 +70,7 @@
 
 6. 删除镜像
 
-       docker image rm awsl1414/aria2:a2b-latest
+       docker image rm awsl1414/aria2:a2b-a2b-latest
 
 ## 变量
 
