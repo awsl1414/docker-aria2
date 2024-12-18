@@ -45,41 +45,34 @@ if [ ! -f /config/dht6.dat ]; then
 fi
 
 #检查setting文件
-if [[ ! -f /config/setting.conf ]]
-then
+if [ ! -f /config/setting.conf ];then
   cp /usr/local/aria2/defaults/setting.conf /config/setting.conf
 fi
 
 # 保留配置、更新修改配置文件
-if [[ -f /config/setting.conf ]]
-then
+if [ -f /config/setting.conf ];then
   . /script/setting
   SED_CONF
 fi
 
 #检查文件过滤文件
-if [[ ! -f /config/文件过滤.conf ]]
-then
+if [ ! -f /config/文件过滤.conf ];then
   cp /usr/local/aria2/defaults/文件过滤.conf /config/文件过滤.conf
 fi
 
 # 创建日志文件
-if [[ ! -f /config/logs/move.log ]]
-then
+if [ ! -f /config/logs/move.log ];then
   touch /config/logs/move.log
 fi
 
-if [[ ! -f /config/logs/recycle.log ]]
-then
+if [ ! -f /config/logs/recycle.log ];then
   touch /config/logs/recycle.log
 fi
 
-if [[ ! -f /config/logs/delete.log ]]
-then
+if [ ! -f /config/logs/delete.log ];then
   touch /config/logs/delete.log
 fi
 
-if [[ ! -f /config/logs/文件过滤日志.log ]]
-then
+if [ ! -f /config/logs/文件过滤日志.log ];then
   touch /config/logs/文件过滤日志.log
 fi

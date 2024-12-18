@@ -6,7 +6,7 @@ services:
     environment:
       - ARIA2_RPC_SECRET=
       - ARIA2_RPC_LISTEN_PORT=6800
-      - ARIA2_LISTEN_PORT=6881
+      - ARIA2_LISTEN_PORT=51413
       - UID=1000
       - GID=1000
       - UMASK=022
@@ -15,8 +15,8 @@ services:
     
     # ports:
     #   - 6800:6800
-    #   - 6881:6881
-    #   - 6881:6881/udp
+    #   - 51413:51413
+    #   - 51413:51413/udp
     #   - 8080:8080
     volumes:
       - ./config:/config
