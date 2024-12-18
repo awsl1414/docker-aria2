@@ -16,7 +16,7 @@ ENV ARIA2_RPC_SECRET=
 ENV ARIA2_RPC_LISTEN_PORT=6800
 ENV ARIA2_LISTEN_PORT=6881
 ENV ARIA2_TRACKERS_UPDATE_AUTO=true
-ENV ARIA2_TRACKERS_LIST_URL=https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt
+ENV ARIA2_TRACKERS_LIST_URL=https://cdn.jsdelivr.net/gh/ngosang/trackerslist@master/trackers_all.txt
 ENV ARIA2_CONF_LANGUAGE=zh_Hans
 ENV ENABLE_ARIANG=true
 ENV ARIANG_PORT=8080
@@ -28,7 +28,8 @@ COPY --chmod=755 root /
 COPY --from=compilingaria2c --chmod=755 /usr/local/bin/aria2c /usr/local/bin/aria2c
 
 # install bash darkhttpd tzdata s6 overlay AriaNg aria2 shadow
-RUN apk add --no-cache bash curl ca-certificates darkhttpd tzdata shadow c-ares expat gmp gnutls sqlite-libs libstdc++ libssh2 jq \
+RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsinghua.edu.cn/alpine#g' /etc/apk/repositories \
+    && apk add --no-cache bash curl ca-certificates darkhttpd tzdata shadow c-ares expat gmp gnutls sqlite-libs libstdc++ libssh2 jq \
     && if [ "$(uname -m)" = "x86_64" ];then s6_arch=x86_64;elif [ "$(uname -m)" = "aarch64" ];then s6_arch=aarch64;elif [ "$(uname -m)" = "armv7l" ];then s6_arch=arm; fi \
     && wget -P /tmp https://github.com/just-containers/s6-overlay/releases/download/v${S6_VER}/s6-overlay-noarch.tar.xz \
     && tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz \
