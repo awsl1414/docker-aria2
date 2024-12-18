@@ -9,10 +9,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-      
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -21,14 +21,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
       # ReleaseTag
       - name: Set Version
         id: set-version
         run: |
-          echo "::set-output name=version::$(date +"%y-%m-%d")"
-          echo $(date +"%y-%m-%d")
-          echo "::set-output name=status::success"
+          version=$(date +"%y-%m-%d")
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo $version
+          echo "status=success" >> $GITHUB_OUTPUT
 
       # Build and push
       - name: Build dockerfile
