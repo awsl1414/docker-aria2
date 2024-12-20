@@ -1,7 +1,7 @@
 
 services:
   aria2:
-    image: awsl1414:latest
+    image: awsl1414/aria2:latest
     container_name: aria2
     environment:
       - ARIA2_RPC_SECRET=
